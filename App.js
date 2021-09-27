@@ -212,7 +212,7 @@ export default function App() {
   async function approveContract() {
       try {
           setTransactionInProgress(true);
-          await tokenContract.methods.approve(existingTokenContractIdInputValue, 1000000000000).send({
+          await tokenContract.methods.approve(contract?.options.address, 1000000000000).send({
               ...DEFAULT_SEND_OPTIONS,
               from: defaultAccount
           });
@@ -297,7 +297,7 @@ export default function App() {
       <br />
       <br />
       <input
-        placeholder="Set Token Contract Address"
+        placeholder="Enter Token Contract Address"
         onChange={e => setExistingTokenContractIdInputValue(e.target.value)}
       />
       <button

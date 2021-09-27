@@ -227,7 +227,7 @@ export default function Token() {
     >
       Get Token Balance
     </button>
-    {tokenBalance ? <>&nbsp;&nbsp;Token Balance: {tokenBalance.toString()}</> : null}
+    {tokenBalance ? <>&nbsp;&nbsp;Token Balance: {tokenBalance.toString()}</> : null} LINOB
     <hr />    
   	<ToastContainer/>
   	</div>);
