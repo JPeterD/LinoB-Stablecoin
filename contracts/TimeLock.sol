@@ -6,7 +6,7 @@ contract TimeLock {
 
     uint256 totalDeposits;
     uint256 numberset;
-    address public stableCoinAddress = 0x5CdD156681D42Ad03B43A6dE6C5070fa2e5c5041;
+    address public stableCoinAddress = 0xf9BfFeC0e8E58209eD9acfc75BbD961b152B935C;
     LinoBToken public stableContract = LinoBToken(stableCoinAddress);
 
     mapping (address => uint256) public depositAmount;
@@ -16,10 +16,10 @@ contract TimeLock {
         require(msg.value > 0, "Deposit has to be greater than 0.");
         require(depositAmount[msg.sender] == 0, "You already have a deposit in the contract");
 
-        depositAmount[msg.sender] = msg.value;
-        totalDeposits = totalDeposits + msg.value;
+        depositAmount[msg.sender] = msg.value / 10e7;
+        totalDeposits = totalDeposits + msg.value / 10e7;
         
-        uint256 stableMintAmount = msg.value / 10e7;
+        uint256 stableMintAmount = msg.value / 10e7 / 2;
         stableContract.mint(msg.sender, stableMintAmount);
         stableCoinAmount[msg.sender] = stableMintAmount;
 
@@ -29,13 +29,14 @@ contract TimeLock {
         require(depositAmount[msg.sender] > 0, "Your deposited funds is 0");
         require(stableCoinAmount[msg.sender] > 0, "You dont have any stable coins!");
 
-        stableContract.transferFrom(msg.sender, address(this), stableCoinAmount[depositor]);
+        stableContract.transferFrom(msg.sender, address(this), stableCoinAmount[msg.sender]);
         stableContract.burn(stableCoinAmount[msg.sender]);
 
         address payable to = payable(msg.sender);
         to.transfer(depositAmount[msg.sender]);
 
         depositAmount[msg.sender] = 0;
+        stableCoinAmount[msg.sender] = 0;
     }
 }
 
