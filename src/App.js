@@ -41,6 +41,7 @@ export default function App() {
   const [tokenContract, setTokenContract] = useState();
   const [accounts, setAccounts] = useState();
   const [l2Balance, setL2Balance] = useState();
+  const [ckbPrice, setCKBPrice] = useState();
   const [depositAmount, setDepositAmount] = useState();
   const [existingContractIdInputValue, setExistingContractIdInputValue] = useState();
   const [existingTokenContractIdInputValue, setExistingTokenContractIdInputValue] = useState();
@@ -230,6 +231,13 @@ export default function App() {
       }
   }
 
+  async function getCKBUSDPrice() {
+      const price = await contract.methods.getCKBUSDPrice().call();
+      toast('Successfully got CKB Price.', { type: 'success' });
+
+      setCKBPrice(price);
+  }
+
 
   useEffect(() => {
       if (web3) {
@@ -267,6 +275,14 @@ export default function App() {
       <br />
       Nervos Layer 2 balance:{' '}
       <b>{l2Balance ? (l2Balance / 10n ** 8n).toString() : <LoadingIndicator />} CKB</b>
+      <br />
+      <br />
+      <button
+        onClick={getCKBUSDPrice} disabled={!contract}
+      >
+        Get CKB Price
+      </button>
+      {ckbPrice ? <>&nbsp;&nbsp;CKB Price: ${(ckbPrice / 1e8).toString()}</> : null}
       <br />
       <br />
       <button onClick={deployContract} disabled={!l2Balance}>
