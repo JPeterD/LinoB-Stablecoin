@@ -34,6 +34,7 @@
         ]
     },
     "dependencies": {
+        "@chainlink/contracts": "^0.2.2",
         "@openzeppelin/contracts": "^4.3.2",
         "@polyjuice-provider/web3": "0.0.1-rc11",
         "@testing-library/jest-dom": "^5.11.4",
