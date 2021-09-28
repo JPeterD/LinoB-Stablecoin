@@ -1,2 +1,2 @@
-# LinoB-Stablecoin
-Stablecoin on Nervos Layer 2 backed by CKB.
+# LinoB-Vault
+USD pegged stablecoin on Nervos Layer 2 Polyjuice collateralized currently by CKB.
