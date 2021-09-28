@@ -9,7 +9,7 @@ contract TimeLock {
     uint256 totalDeposits;
     uint256 numberset;
 
-    address public stableCoinAddress = 0x4E39b8D4077508eAAb982d8E4DB1B7BF065b5016;
+    address public stableCoinAddress = 0xcc2d98FAA13676641E580585AaB2c9D995661428;
     LinoBToken public stableContract = LinoBToken(stableCoinAddress);
 
     mapping (address => uint256) public depositAmount;
@@ -30,7 +30,7 @@ contract TimeLock {
         depositAmount[msg.sender] = msg.value;
         totalDeposits = totalDeposits + msg.value;
         
-        uint256 stableMintAmount = msg.value * uint256(price) / 10e7;
+        uint256 stableMintAmount = msg.value * uint256(price) / 10e7 / 2;
         stableContract.mint(msg.sender, stableMintAmount);
         stableCoinAmount[msg.sender] = stableMintAmount;
 

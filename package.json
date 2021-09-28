@@ -1,5 +1,5 @@
 {
-    "name": "nervos-evm-starter",
+    "name": "LinoB-Vault",
     "description": "",
     "license": "MIT",
     "author": "",
@@ -23,9 +23,9 @@
     },
     "browserslist": {
         "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
         ],
         "development": [
             "last 1 chrome version",
@@ -35,6 +35,8 @@
     },
     "dependencies": {
         "@chainlink/contracts": "^0.2.2",
+        "@chakra-ui/icons": "^1.0.15",
+        "@chakra-ui/react": "^1.6.8",
         "@openzeppelin/contracts": "^4.3.2",
         "@polyjuice-provider/web3": "0.0.1-rc11",
         "@testing-library/jest-dom": "^5.11.4",
