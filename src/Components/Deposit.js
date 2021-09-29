@@ -3,15 +3,13 @@ import {toast } from 'react-toastify';
 import { Button, Box, Text, Input, InputGroup, InputRightAddon } from "@chakra-ui/react";
 import 'web3';
 import {createWeb3} from './createWeb3.js'; 
-import TimeLockJSON from './../artifacts/contracts/TimeLock.sol/TimeLock.json';
+import LinoBVaultJSON from './../artifacts/contracts/LinoBVault.sol/LinoBVault.json';
 import LinoBuxJSON from './../artifacts/contracts/LinoBToken.sol/LinoBux.json';
 
 export default function Deposit() {
     const [transactionInProgress, setTransactionInProgress] = useState(false);
     const toastId = useRef(null);
     const [web3, setWeb3] = useState(null);
-    const [contract, setContract] = useState();
-    const [linoBContract, setLinoBContract] = useState();
     const [accounts, setAccounts] = useState();
 
     const [depositAmount, setDepositAmount] = useState();
@@ -53,8 +51,7 @@ const DEFAULT_SEND_OPTIONS = {
           setTransactionInProgress(true);
           const depositValue = web3.utils.toBN(depositAmount);
 
-          const contract = new web3.eth.Contract(TimeLockJSON.abi, "0x0018cb5101Bf0a2F4dAbD67b0A9E96DD1b98227D");
-          setContract(contract);
+          const contract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x896C957502B905d89AC08279D192180FAA72fAc5");
 
           await contract.methods.deposit().send({
               ...DEFAULT_SEND_OPTIONS,
@@ -78,10 +75,8 @@ const DEFAULT_SEND_OPTIONS = {
   async function approveContract() {
       try {
           setTransactionInProgress(true);
-          const _contract = new web3.eth.Contract(LinoBuxJSON.abi, "0xcc2d98FAA13676641E580585AaB2c9D995661428");
-          const contract = new web3.eth.Contract(TimeLockJSON.abi, "0x0018cb5101Bf0a2F4dAbD67b0A9E96DD1b98227D");
-          setContract(contract);
-          setLinoBContract(_contract);
+          const _contract = new web3.eth.Contract(LinoBuxJSON.abi, "0x76FebBBE670De113b78858edB2a831A63fB9bB06");
+          const contract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x896C957502B905d89AC08279D192180FAA72fAc5");
 
           await _contract.methods.approve(contract?.options.address, 1000000000000).send({
               ...DEFAULT_SEND_OPTIONS,
@@ -104,8 +99,7 @@ const DEFAULT_SEND_OPTIONS = {
   async function withdrawFunds() {
       try {
           setTransactionInProgress(true);
-          const contract = new web3.eth.Contract(TimeLockJSON.abi, "0x0018cb5101Bf0a2F4dAbD67b0A9E96DD1b98227D");
-          setContract(contract);
+          const contract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x896C957502B905d89AC08279D192180FAA72fAc5");
 
           await contract.methods.withdraw().send({
               ...DEFAULT_SEND_OPTIONS,

@@ -6,7 +6,7 @@ import { Box, Button, Modal, ModalOverlay,
   ModalBody,
   ModalCloseButton } from "@chakra-ui/react";
 import { useDisclosure } from '@chakra-ui/hooks'
-import TimeLockJSON from './../artifacts/contracts/TimeLock.sol/TimeLock.json';
+import LinoBVaultJSON from './../artifacts/contracts/LinoBVault.sol/LinoBVault.json';
 import {createWeb3} from './createWeb3.js'; 
 import 'web3';
 import { AddressTranslator } from 'nervos-godwoken-integration';
@@ -15,11 +15,11 @@ import { AddressTranslator } from 'nervos-godwoken-integration';
 
 export default function VaultInfo() {
     const [web3, setWeb3] = useState(null);
-    const [contract, setContract] = useState();
     const [accounts, setAccounts] = useState();
     const [loanAmount, setLoanAmount] = useState();
     const [polyjuiceAddress, setPolyjuiceAddress] = useState();
     const [lockedCKB, setLockedCKB] = useState();
+    const [ckbRatio, setCKBRatio] = useState();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
 
@@ -36,8 +36,7 @@ export default function VaultInfo() {
 
 
     async function getDetails() {
-          const contract = new web3.eth.Contract(TimeLockJSON.abi, "0x0018cb5101Bf0a2F4dAbD67b0A9E96DD1b98227D");
-          setContract(contract);
+          const contract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x896C957502B905d89AC08279D192180FAA72fAc5");
 
           const value = await contract.methods.stableCoinAmount(polyjuiceAddress).call();
           setLoanAmount(value);
@@ -45,6 +44,17 @@ export default function VaultInfo() {
           // eslint-disable-next-line no-undef
           const values = BigInt(await contract.methods.depositAmount(polyjuiceAddress).call());
           setLockedCKB(values);
+
+          const price = await contract.methods.getCKBUSDPrice().call();
+
+          if(values > 0){
+          // eslint-disable-next-line no-undef
+          const ratio = values * BigInt(price) / BigInt(value) / BigInt(10e7) * BigInt(100);
+          setCKBRatio(ratio);
+        }
+        else {
+          setCKBRatio(0);
+        }
   }
 
     useEffect(() => {
@@ -77,11 +87,17 @@ export default function VaultInfo() {
             <ModalCloseButton />
           <ModalBody>
 		      <Box>
-		        Collateral Ratio - 200%
+		        Minimum Collateral Ratio: 150%
 	      	</Box>
+          <Box>
+          Liquidation Fee: 5%
+          </Box>
 		        Balance: {loanAmount ? <>{(loanAmount / 10e7).toString()} LINOB</> : <LoadingIndicator/>}
           <Box>
             Locked: {lockedCKB ? (lockedCKB / 10n ** 8n).toString() : 0} CKB
+          </Box>
+          <Box>
+          Your Collateral Ratio: {ckbRatio ? <>&nbsp;{(ckbRatio).toString()}%</> :<>N/A </> }
           </Box>
           </ModalBody>
           <ModalFooter>

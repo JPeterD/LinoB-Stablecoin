@@ -25,7 +25,7 @@ export default function ConnectButton() {
 
   async function getTokenBalance() {
       if(!linoBContract && !linoBBalance){
-      const _contract = new web3.eth.Contract(LinoBuxJSON.abi, "0xcc2d98FAA13676641E580585AaB2c9D995661428");
+      const _contract = new web3.eth.Contract(LinoBuxJSON.abi, "0x76FebBBE670De113b78858edB2a831A63fB9bB06");
       setLinoBContract(_contract);
 
       const value = await _contract.methods.balanceOf(polyjuiceAddress).call();
@@ -88,6 +88,8 @@ export default function ConnectButton() {
       background="gray.700"
       borderRadius="xl"
       py="0"
+      mt="-16"
+      mb="7"
     >
     <Box px="3">
       <Text color="white" fontSize="md">
@@ -119,6 +121,6 @@ export default function ConnectButton() {
       </Button>
     </Box>
   ) : (
-    <Button onClick={triggerWeb3}>Connect to a wallet</Button>
+    <Button mt="-16" mb="7" onClick={triggerWeb3}>Connect to a wallet</Button>
   );
 }

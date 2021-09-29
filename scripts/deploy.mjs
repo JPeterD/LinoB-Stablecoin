@@ -5,11 +5,23 @@ import { readFile } from 'fs/promises';
 import CONFIG from '../src/config.js';
 
 (async () => {
-    const DenominationsJSON = JSON.parse(
+    const LinoBVaultJSON = JSON.parse(
         await readFile(
-            new URL('../src/artifacts/contracts/TimeLock.sol/TimeLock.json', import.meta.url)
+            new URL('../src/artifacts/contracts/LinoBVault.sol/LinoBVault.json', import.meta.url)
         )
     );
+
+    const LinoBuxJSON = JSON.parse(
+        await readFile(
+            new URL('../src/artifacts/contracts/LinoBToken.sol/LinoBux.json', import.meta.url)
+        )
+    );
+
+    const DEFAULT_SEND_OPTIONS = {
+        gas: 1000000,
+        gasPrice: 0
+      };
+
 
     const providerConfig = {
         web3Url: CONFIG.HTTP_RPC_URL
@@ -25,15 +37,23 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-    const myContract = new web3.eth.Contract(DenominationsJSON.abi);
+    const tokenContract = new web3.eth.Contract(LinoBuxJSON.abi, "0x76FebBBE670De113b78858edB2a831A63fB9bB06");
+
+   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi);
     const contractInstance = await myContract
         .deploy({
-            data: DenominationsJSON.bytecode,
+            data: LinoBVaultJSON.bytecode,
             arguments: []
         })
         .send({
             from: USER_ONE.address
         });
 
-    console.log(`Deployed contract: ${contractInstance.options.address}`);
+    console.log(`Deployed vault contract: ${contractInstance.options.address}`);
+
+    const ownershipTransfer = await tokenContract.methods.transferOwnership(contractInstance.options.address).send({
+              ...DEFAULT_SEND_OPTIONS,
+              from: USER_ONE.address
+          });
+        console.log(`Transfered ownership successfully.`)
 })();
