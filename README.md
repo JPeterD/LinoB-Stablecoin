@@ -5,4 +5,4 @@ LinoB Vault is a decentralized application on the Nervos Layer 2 chain. Linob Va
 
 
 ## Documentation
-[Read Documentation](https://jpeter.gitbook.io/linob-vault/)
+[Read Documentation](https://linob.gitbook.io/linob-vault/)
