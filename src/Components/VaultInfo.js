@@ -49,7 +49,7 @@ export default function VaultInfo() {
 
           if(values > 0){
           // eslint-disable-next-line no-undef
-          const ratio = values * BigInt(price) / BigInt(value) / BigInt(10e7) * BigInt(100);
+          const ratio = values * BigInt(price) / BigInt(value) * BigInt(100) / BigInt(10e7);
           setCKBRatio(ratio);
         }
         else {
