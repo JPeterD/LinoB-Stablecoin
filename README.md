@@ -5,4 +5,4 @@ USD pegged stablecoin on Nervos Layer 2 currently taking collateral with Nervos'
 
 
 ## Documentation
-[Documentation here](https://jpeter.gitbook.io/linob-vault/)
+[Read Documentation](https://jpeter.gitbook.io/linob-vault/)
