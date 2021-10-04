@@ -11,7 +11,7 @@ export default function Navbar({ children }) {
       pb="0"
       pl="910"
       bg="gray.600"
-      w="100vw"
+      w="98vw"
     >
    {children}
     </Flex>

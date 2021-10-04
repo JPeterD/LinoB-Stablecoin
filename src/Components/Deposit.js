@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef} from 'react';
 import {toast } from 'react-toastify';
-import { Button, Box, Text, Input, InputGroup, InputRightAddon } from "@chakra-ui/react";
+import { Button, Box, Text, Image, Input, InputGroup, InputRightAddon, InputRightElement } from "@chakra-ui/react";
 import 'web3';
+import CKBIcon from "./../images/ckbicon.png"
 import {createWeb3} from './createWeb3.js'; 
 import LinoBVaultJSON from './../artifacts/contracts/LinoBVault.sol/LinoBVault.json';
 import LinoBuxJSON from './../artifacts/contracts/LinoBToken.sol/LinoBux.json';
@@ -148,9 +149,11 @@ const DEFAULT_SEND_OPTIONS = {
     <Input type="number" 
     onChange={e => setDepositAmount(parseInt(e.target.value, 10) * 10e7)} 
     placeholder="Enter Deposit Amount" color="white"/>
-    <Text color="black">
-    <InputRightAddon children="CKB" />
-    </Text>
+    <InputRightElement
+      pointerEvents="none"
+      children={<Image boxSize="25px" mr="12vw" src={CKBIcon}/>}
+    />
+    <InputRightAddon children="CKB"/>
     </InputGroup>
     <Button
     bg="gray.800"

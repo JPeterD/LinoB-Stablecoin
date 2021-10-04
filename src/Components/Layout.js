@@ -5,7 +5,7 @@ export default function Layout({ children }) {
     <Flex
       flexDirection="column"
       alignItems="center"
-      h="100vh"
+      h="115vh"
       bg="gray.800"
     >
    {children}

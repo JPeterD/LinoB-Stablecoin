@@ -4,10 +4,10 @@ import { Box, Button, Modal, ModalOverlay,
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton } from "@chakra-ui/react";
+  ModalCloseButton} from "@chakra-ui/react";
 import { useDisclosure } from '@chakra-ui/hooks'
 import LinoBVaultJSON from './../artifacts/contracts/LinoBVault.sol/LinoBVault.json';
-import {createWeb3} from './createWeb3.js'; 
+import {createWeb3} from './createWeb3.js';
 import 'web3';
 import { AddressTranslator } from 'nervos-godwoken-integration';
 
@@ -78,7 +78,7 @@ export default function VaultInfo() {
   const LoadingIndicator = () => <span className="rotating-icon">⚙️</span>;
 
 	return (
-		<Box pt={10}>
+		<Box p={10}>
       <Button onClick={onOpen}>View CKB Vault Details</Button>
       <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
         <ModalOverlay />

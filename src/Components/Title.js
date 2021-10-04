@@ -7,7 +7,7 @@ export default function Title() {
 	return (
 		<>
 		<Box>
-		<Image mr="97vw" src={logo}/>
+		<Image mr="96vw" src={logo}/>
 		</Box>
 		</>
 		)

@@ -6,6 +6,7 @@ import Navbar from './Components/Navbar.js';
 import Deposit from './Components/Deposit.js';
 import VaultInfo from './Components/VaultInfo.js';
 import Title from './Components/Title.js'
+import VaultTotals from './Components/VaultTotals.js'
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,6 +21,7 @@ export default function App() {
             </Navbar>
             <Deposit/>
             <VaultInfo/>
+            <VaultTotals/>
           </Layout>
         </ChakraProvider>
       <ToastContainer />
